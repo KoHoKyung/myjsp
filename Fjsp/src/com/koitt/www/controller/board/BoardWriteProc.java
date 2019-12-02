@@ -14,19 +14,20 @@ public class BoardWriteProc implements MainController {
 		
 		
 		String view = "boardlist.cls";
-		System.out.println(view);
+		
+		
 		String sid = req.getParameter("id");
-		System.out.println(sid);
+
 		String fbname = req.getParameter("fbname");
 		String fbbody = req.getParameter("fbbody");
-		System.out.println(fbname);
-		System.out.println(fbbody);
+
 		int cnt = 0;
 		FileBoardADao dao = new FileBoardADao();
 		cnt = dao.getwrite(sid, fbname, fbbody);
 		
 		if(cnt > 0 ) {
 			System.out.println("등록완료");
+			req.setAttribute("cnt", cnt);
 		}else {
 			System.out.println("실패");
 			view = "boardwrite.cls";

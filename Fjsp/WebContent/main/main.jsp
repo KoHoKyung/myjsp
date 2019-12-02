@@ -137,21 +137,24 @@ $(document).ready( function () {
 
 </script>
 </head>
-<body>
+<body class="w3-teal">
 
    <div class="w3-col m2"><p></p></div>
-   <div class="w3-col m8 w3-center w3-margin-top">
-      <h1 class="w3-col w3-pale-blue">Welcome My Home!!!</h1>
-      <div class="w3-col">
+   <div class="w3-col m8 w3-center w3-margin-top w3-white">
+      <h1 class="w3-col w3-pale-blue">메인 화면</h1>
+      <div class="w3-col" style="height: 700px;">
+      	<div class="w3-col w3-border" style="width: 90%; height: 90%; margin-left: 5%; margin-top: 2%; font-size: 50px;" > 홈페이지</div>
+      </div>
+      <div class="w3-col w3-margin-bottom ">
 			<c:if test='${empty SID }'>
-				<div class="w3-col m2 w3-red w3-button" id="login">로그인</div>
-				<div class="w3-col m2 w3-deep-purple w3-button" id="join">회원가입</div>
-				<div class="w3-col m2 w3-blue w3-button" id="boardlist">게시판</div>
+				<div class="w3-col m2 w3-red w3-button w3-right" id="login">로그인</div>
+				<div class="w3-col m2 w3-deep-purple w3-button w3-right" id="join">회원가입</div>
+				<div class="w3-col m2 w3-blue w3-button w3-right" id="boardlist">게시판</div>
 			</c:if>
 			<c:if test='${not empty SID }'>
-         <div class="w3-col m2 w3-red w3-button" id="logout">로그아웃</div>
-         <div class="w3-col m2 w3-blue w3-button" id="list">회원정보보기</div>
-         <div class="w3-col m2 w3-blue w3-button" id="boardlist">게시판</div>
+         <div class="w3-col m2 w3-red w3-button w3-right" id="logout">로그아웃</div>
+         <div class="w3-col m2 w3-indigo w3-button w3-right" id="list">회원정보보기</div>
+         <div class="w3-col m2 w3-blue w3-button w3-right" id="boardlist">게시판</div>
 <!--          <div class="w3-col m2 w3-red w3-button" id="userEdit">회원정보수정</div> -->
          
 
@@ -163,8 +166,9 @@ $(document).ready( function () {
 		<div class="w3-modal-content">
 			<div class="w3-container w3-col w3-white w3-padding">
 				<span id="btn2"
-					class="w3-botton w3-display-topright w3-margin-right w3-margin-top w3-xxlarge">&times;</span>
-				<h2 class="w3-col w3-line w3-purple  w3-padding-16 w3-card">회원정보</h2>
+					class="w3-button w3-display-topright w3-margin-right w3-margin-top w3-purple w3-xlarge" style="top: 10px;">&times;</span>
+				<h2 class="w3-col w3-line w3-purple  w3-padding-16 w3-card w3-center">회원정보</h2>
+				
 				<div class="w3-border-bottom w3-col">
 					<h5 class="w3-col m3 w3-right-align">회원번호 :</h5>
 					<h5 class="w3-col m9 w3-center" id="mno"></h5>
@@ -198,9 +202,10 @@ $(document).ready( function () {
 	<div class="w3-modal" id="edit">
 		<div class="w3-modal-content">
 			<div class="w3-container w3-col w3-white w3-padding">
+				
+				<h2 class="w3-col w3-line w3-purple  w3-padding-16 w3-card w3-center">회원 정보 수정</h2>
 				<span id="btn3"
-					class="w3-botton w3-display-topright w3-margin-right w3-margin-top w3-xxlarge">&times;</span>
-				<h2 class="w3-col w3-line w3-purple  w3-padding-16 w3-card">회원 정보 수정</h2>
+					class="w3-button w3-display-topright w3-margin-right w3-margin-top w3-purple w3-xlarge" style="top:10px;">&times;</span>
 				<div class="w3-border-bottom w3-col">
 					<h5 class="w3-col m3 w3-right-align">회원번호 :</h5>
 					<h5 class="w3-col m9 w3-center" id="no"></h5>

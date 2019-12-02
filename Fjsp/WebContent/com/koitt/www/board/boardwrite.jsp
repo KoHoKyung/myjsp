@@ -16,6 +16,10 @@ $(document).ready(function () {
 	$('#list').click(function () {
 		$(location).attr('href', "/board/boardlist.cls");
 	});
+$('#join').click(function () {
+	var wr = $('.wri').attr('id');
+	alert(wr);
+});
 });
 </script>
 </head>
@@ -40,9 +44,9 @@ $(document).ready(function () {
 			</div>
 		
 			<div class="w3-col m2 w3-button w3-blue" id="list">리스트</div>
-
+		
 			<input class="w3-col m2 w3-button w3-right w3-red" type="submit" id="join" name="join" value="저장"></div>
-
+			<input type="hidden" class="wri" id="${cnt}"> 
 		</div>
 	</form>
 </body>

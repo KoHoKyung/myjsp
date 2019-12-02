@@ -15,6 +15,11 @@
 <style>
 </style>
 <script type="text/javascript">
+$(document).ready(function () {
+	$('#home').click(function () {
+		$(location).attr('href', '/');
+	});
+});
 /*    
    var sid = '${SID}';
    $(function(){
@@ -24,24 +29,29 @@
    }); */
 </script>
 </head>
-<body>
+<body class="w3-teal">
    <div class="w3-col m3"><p></p></div>
    <!-- 로그인 폼 페이지 -->
+
    <c:if test="${empty SID}">
+   
 <!--       <form method="POST" action="/member/LoginExec.nop" id="frm"  class="w3-col m6 w3-center w3-margin-top" > -->
-      <form method="POST" action="/member/loginProc.cls" id="frm"  class="w3-col m6 w3-center w3-margin-top" >
-         <div>
-            I D : <input type="text" id="id" name="id">
+      <form method="POST" action="/member/loginProc.cls" id="frm"  class="w3-col m6 w3-center w3-padding-16" style="margin-top : 10%;">
+         <button type="button" id="home" class="w3-left w3-indigo w3-button"> 메인화면</button>
+      	<div class="w3-col w3-padding-16 w3-green w3-margin-top w3-pale-blue"><h1>로 그 인</h1>
+         <div class="w3-col w3-padding-16">
+            I D : <input type="text" id="id" name="id" style="width:50%; height: 40px;" placeholder="아이디를 입력하세요">
          </div>
-         <div>
-            PW : <input type="password" id="pw" name="pw">
+         <div class=" w3-padding-16">
+            PW : <input type="password" id="pw" name="pw" style="width:50%; height: 40px;" placeholder="비밀번호를 입력하세요">
          </div>
-         <input type="button" id="home" value="취소">
-         <input type="submit" id="btn" value="로그인">
+         
+       <button type="submit" id="btn" class="w3-col m6 w3-center w3-padding-16 w3-teal w3-margin-top w3-button" style="margin-left: 27%;">로그인</button>
  
-       
+       </div>
       </form>
    </c:if>
+
    <c:if test="${not empty SID}">
       <div class="w3-col m6 w3-center" id="d1">
          <h3>${SID} 님은 이미로그인 했습니다.</h3>

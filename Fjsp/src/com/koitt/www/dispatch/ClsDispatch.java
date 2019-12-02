@@ -92,10 +92,9 @@ public class ClsDispatch extends HttpServlet {
 		// forward 일 경우에는 false로 redirect 일 경우에는 true로 데이터를 저장해서 보내고
 		// 뷰를 부를 때 그 값을 불러서 처리하면 두가지방식 모두 처리가 될 것이다.
 		req.setAttribute("isRD", false);
-	
+		System.out.println(controller);
 		String view = controller.execute(req, resp);
 		System.out.println(view);
-		
 		// 뷰를 호출한다.
 		
 			/*

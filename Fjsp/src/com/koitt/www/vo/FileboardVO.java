@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat;
  */
 public class FileboardVO {
 	private int fb_no;
-	private String fb_id;
+	private int fb_rn;
+	private int fb_writer;
 	private String fb_title;
 	private String fb_body;
 	private int fb_fno;
@@ -25,11 +26,26 @@ public class FileboardVO {
 	private String stime;
 	private String sdate;
 	private String isshow;
+
+	
+	public int getFb_writer() {
+		return fb_writer;
+	}
+	public void setFb_writer(int fb_writer) {
+		this.fb_writer = fb_writer;
+	}
+	private String fb_id;
 	public int getFb_no() {
 		return fb_no;
 	}
 	public void setFb_no(int fb_no) {
 		this.fb_no = fb_no;
+	}
+	public int getFb_rn() {
+		return fb_rn;
+	}
+	public void setFb_rn(int fb_rn) {
+		this.fb_rn = fb_rn;
 	}
 	public String getFb_id() {
 		return fb_id;
@@ -96,7 +112,7 @@ public class FileboardVO {
 		this.isshow = isshow;
 	}
 public String toString() {
-	String str = " **************** " + fb_no + " - " +  fb_id  +  "\n\t ###" + fb_title + "-------------" + "\n\t" + sdate + " " + stime + " ***************** " + fb_body ;
+	String str = fb_rn +" **************** " + fb_no + " - " +  fb_id  +  "\n\t ###" + fb_title + "-------------" + "\n\t" + sdate + " " + stime + " ***************** " + fb_body ;
 	
 		return  str;
 }
