@@ -20,7 +20,8 @@ public class BoardWriteProc implements MainController {
 
 		String fbname = req.getParameter("fbname");
 		String fbbody = req.getParameter("fbbody");
-
+		
+		System.out.println(fbbody);
 		int cnt = 0;
 		FileBoardADao dao = new FileBoardADao();
 		cnt = dao.getwrite(sid, fbname, fbbody);

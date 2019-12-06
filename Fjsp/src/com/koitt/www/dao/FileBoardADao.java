@@ -1,9 +1,11 @@
 package com.koitt.www.dao;
 
 import java.sql.*;
+
 import java.util.ArrayList;
 
 import com.koitt.www.sql.FileBoardSQL;
+import com.koitt.www.vo.CommentVO;
 import com.koitt.www.vo.FileInfoVO;
 import com.koitt.www.vo.FileboardVO;
 import com.koitt.www.vo.MemberVO;
@@ -47,7 +49,7 @@ public class FileBoardADao {
 		con = db.getCon();
 		String sql = fbSQL.getSql(fbSQL.SEL_ALL);
 		
-		System.out.println("getFBList(int startRow, int endRow) : \n" + sql);
+	
 		
 		// 질의 명령 가져오고
 		pstmt = db.getPSTMT(con, sql);
@@ -78,14 +80,13 @@ public class FileBoardADao {
 		return list;
 	}
 	
-	public ArrayList<FileboardVO> getFBSI(int startRow, int endRow, String st) {
+	public ArrayList<FileboardVO> getFBSER(int startRow, int endRow, String st, int ser) {
 		ArrayList<FileboardVO> list = new ArrayList<FileboardVO>();
 		// 커넥션 얻어오고
 		con = db.getCon();
-		String sql = fbSQL.getSql(fbSQL.SEL_SEARCHI);
+		String sql = fbSQL.getSql(ser);
 		// 질의 명령 가져오고
 		
-		System.out.println("getFBSI(int startRow, int endRow, String st) : \n" + sql);
 		
 		pstmt = db.getPSTMT(con, sql);
 		
@@ -116,74 +117,39 @@ public class FileBoardADao {
 		return list;
 	}
 	
-	public ArrayList<FileboardVO> getFBST(int startRow, int endRow, String st) {
-		ArrayList<FileboardVO> list = new ArrayList<FileboardVO>();
-		// 커넥션 얻어오고
-		con = db.getCon();
-		String sql = fbSQL.getSql(fbSQL.SEL_SEARCHT);
-		// 질의 명령 가져오고
-		pstmt = db.getPSTMT(con, sql);
-		
-		try {
-			pstmt.setString(1, "%"+st+"%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				fVo = new FileboardVO();
-				fVo.setFb_rn(rs.getInt("rn"));
-				fVo.setFb_no(rs.getInt("bno"));
-				fVo.setFb_id(rs.getString("writer"));
-				fVo.setWdate(rs.getDate("wdate"));
-				fVo.setWtime(rs.getTime("wdate"));
-				fVo.setFb_title(rs.getString("title"));
-				list.add(fVo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			db.close(rs);
-			db.close(pstmt);
-			db.close(con);
-		}
-		
-		
-		return list;
-	}
-	public ArrayList<FileboardVO> getFBSB(int startRow, int endRow, String st) {
-		ArrayList<FileboardVO> list = new ArrayList<FileboardVO>();
-		// 커넥션 얻어오고
-		con = db.getCon();
-		String sql = fbSQL.getSql(fbSQL.SEL_SEARCHT);
-		// 질의 명령 가져오고
-		pstmt = db.getPSTMT(con, sql);
-		
-		try {
-			pstmt.setString(1, "%"+st+"%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				fVo = new FileboardVO();
-				fVo.setFb_rn(rs.getInt("rn"));
-				fVo.setFb_no(rs.getInt("bno"));
-				fVo.setFb_id(rs.getString("writer"));
-				fVo.setWdate(rs.getDate("wdate"));
-				fVo.setWtime(rs.getTime("wdate"));
-				fVo.setFb_title(rs.getString("title"));
-				list.add(fVo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			db.close(rs);
-			db.close(pstmt);
-			db.close(con);
-		}
-		
-		
-		return list;
-	}
+	/*
+	 * public ArrayList<FileboardVO> getFBST(int startRow, int endRow, String st) {
+	 * ArrayList<FileboardVO> list = new ArrayList<FileboardVO>(); // 커넥션 얻어오고 con =
+	 * db.getCon(); String sql = fbSQL.getSql(fbSQL.SEL_SEARCHT); // 질의 명령 가져오고
+	 * pstmt = db.getPSTMT(con, sql);
+	 * 
+	 * try { pstmt.setString(1, "%"+st+"%"); pstmt.setInt(2, startRow);
+	 * pstmt.setInt(3, endRow); rs = pstmt.executeQuery(); while (rs.next()) { fVo =
+	 * new FileboardVO(); fVo.setFb_rn(rs.getInt("rn"));
+	 * fVo.setFb_no(rs.getInt("bno")); fVo.setFb_id(rs.getString("writer"));
+	 * fVo.setWdate(rs.getDate("wdate")); fVo.setWtime(rs.getTime("wdate"));
+	 * fVo.setFb_title(rs.getString("title")); list.add(fVo); } } catch
+	 * (SQLException e) { e.printStackTrace(); } finally { db.close(rs);
+	 * db.close(pstmt); db.close(con); }
+	 * 
+	 * 
+	 * return list; } public ArrayList<FileboardVO> getFBSB(int startRow, int
+	 * endRow, String st) { ArrayList<FileboardVO> list = new
+	 * ArrayList<FileboardVO>(); // 커넥션 얻어오고 con = db.getCon(); String sql =
+	 * fbSQL.getSql(fbSQL.SEL_SEARCHT); // 질의 명령 가져오고 pstmt = db.getPSTMT(con, sql);
+	 * 
+	 * try { pstmt.setString(1, "%"+st+"%"); pstmt.setInt(2, startRow);
+	 * pstmt.setInt(3, endRow); rs = pstmt.executeQuery(); while (rs.next()) { fVo =
+	 * new FileboardVO(); fVo.setFb_rn(rs.getInt("rn"));
+	 * fVo.setFb_no(rs.getInt("bno")); fVo.setFb_id(rs.getString("writer"));
+	 * fVo.setWdate(rs.getDate("wdate")); fVo.setWtime(rs.getTime("wdate"));
+	 * fVo.setFb_title(rs.getString("title")); list.add(fVo); } } catch
+	 * (SQLException e) { e.printStackTrace(); } finally { db.close(rs);
+	 * db.close(pstmt); db.close(con); }
+	 * 
+	 * 
+	 * return list; }
+	 */
 	public ArrayList<FileboardVO> getFBSA( int startRow, int endRow, String st) {
 		ArrayList<FileboardVO> list = new ArrayList<FileboardVO>();
 		// 커넥션 얻어오고
@@ -481,6 +447,72 @@ public class FileBoardADao {
 		
 		return cnt;
 	}
+	
+	public int addboardre(String sid, String rep, String fbno) {
+		int cnt = 0;
+		con = db.getCon();
+		String sql = fbSQL.getSql(fbSQL.EDIT_RECONTENT);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, sid);
+			pstmt.setString(2, fbno);
+			pstmt.setString(3, rep);
+			cnt = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		return cnt;
+	}
 
-
+	public ArrayList<CommentVO> getboardre(String sid) {
+		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
+		// 커넥션 얻어오고
+		con = db.getCon();
+		String sql = fbSQL.getSql(fbSQL.SEL_BOARDRE);
+		// 질의 명령 가져오고
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, sid);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				CommentVO fVo = new CommentVO();
+				fVo.setFrb_bno(rs.getInt("bno"));
+				fVo.setFrb_id(rs.getString("id"));
+				fVo.setWdate(rs.getDate("wdate"));
+				fVo.setWtime(rs.getTime("wdate"));
+				fVo.setFrb_body(rs.getString("body"));
+				fVo.setFrb_fbno(rs.getInt("fbno"));
+				list.add(fVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		return list;
+	}
+	public int delre(String bno) {
+		int cnt = 0;
+		con = db.getCon();
+		String sql = fbSQL.getSql(fbSQL.DEL_BOARDRE);
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			pstmt.setString(1, bno);
+			cnt = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		
+		return cnt;
+	}
+	
 }

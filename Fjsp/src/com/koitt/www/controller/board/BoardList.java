@@ -29,16 +29,17 @@ public class BoardList implements MainController {
 		String sel = req.getParameter("select");
 		String pageNum = req.getParameter("pageNum");
 		
+		
 		FileBoardADao dao = new FileBoardADao();
 		
-		
+
 		
 		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage*PAGE_SIZE) -PAGE_SIZE +1;
+		int startRow = (currentPage*PAGE_SIZE) - PAGE_SIZE +1;
 		int endRow = startRow + PAGE_SIZE -1;
 
 	
@@ -47,23 +48,24 @@ public class BoardList implements MainController {
 		
 		if(st != null && sel != null) {
 
-
+			int ser = Integer.parseInt(sel);
+			System.out.println(ser);
 			// 제목
-			if(sel.equals("1") == true ) {
+			if(ser == 1003 ) {
 				cnt = dao.getMAXPAGEBT(st) ;
-				ArrayList<FileboardVO> list1 = dao.getFBST(startRow, endRow, st);
+				ArrayList<FileboardVO> list1 = dao.getFBSER(startRow, endRow, st, ser);
 				req.setAttribute("LIST", list1);
 			
 			// ID
-			} else if(sel.equals("2") == true){
+			} else if(ser == 1004){
 				cnt = dao.getMAXPAGEBI(st) ;
-				ArrayList<FileboardVO> list = dao.getFBSI(startRow, endRow, st);
+				ArrayList<FileboardVO> list = dao.getFBSER(startRow, endRow, st, ser);
 				req.setAttribute("LIST", list);
 		
 			// 내용
-			} else if(sel.equals("3") == true) {
+			} else if(ser == 1005) {
 				cnt = dao.getMAXPAGEBB(st) ;
-				ArrayList<FileboardVO> list = dao.getFBSB(startRow, endRow, st);
+				ArrayList<FileboardVO> list = dao.getFBSER(startRow, endRow, st, ser);
 				req.setAttribute("LIST", list);
 			
 			// 제목 + 내용  	
@@ -74,19 +76,12 @@ public class BoardList implements MainController {
 				req.setAttribute("LIST", list);
 				
 			}
-			int totalPage = 0;
-			int startPage = (currentPage/PAGE_GROUP)*PAGE_GROUP +1;
+			int totalPage = cnt / PAGE_SIZE + (cnt % PAGE_SIZE != 0 ? 1 : 0);
+			int startPage = ((currentPage-1)/PAGE_GROUP)*PAGE_GROUP +1;
 			int endPage = startPage + PAGE_GROUP -1;
-			
-		if(endPage > cnt/PAGE_SIZE) {
-			totalPage = (endPage = cnt/PAGE_SIZE) +1;
-			if(cnt%PAGE_SIZE == 0) {
-				endPage = (cnt/PAGE_SIZE) - 1;
-				totalPage = cnt/PAGE_SIZE;
-
+			if(endPage > totalPage) {
+				endPage = totalPage;
 			}
-			
-		} 
 		req.setAttribute("st", st);
 		req.setAttribute("sel", sel);
 		req.setAttribute("startPage", startPage);
@@ -142,8 +137,8 @@ public class BoardList implements MainController {
 		// 페이지 네이게이션에 대한 처리				
 		int totalPage = cnt / PAGE_SIZE + (cnt % PAGE_SIZE != 0 ? 1 : 0);
 			
-		int startPage = (currentPage/PAGE_GROUP) * PAGE_GROUP + 1;		
-		int endPage = startPage + PAGE_GROUP -1;
+			int startPage = ((currentPage-1)/PAGE_GROUP) * PAGE_GROUP + 1;		
+			int endPage = startPage + PAGE_GROUP -1 ;
 
 		
 		if(endPage > totalPage) {

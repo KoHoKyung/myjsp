@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.oreilly.servlet.multipart.*;
 
 public class MyFileRenamePolicy implements FileRenamePolicy {
-    public File rename(File f) {
+public File rename(File f) {
     	
         String name = f.getName();
         String body = null;

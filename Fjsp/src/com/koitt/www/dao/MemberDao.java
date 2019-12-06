@@ -166,19 +166,26 @@ public class MemberDao {
 		}
 		return cnt;
 	}
+	
+	// 회원가입 처리 전담 함수
 	public int AddMem(MemberVO vo) {
-		
-		con = db.getCon();
 		int cnt = 0;
+		// 커넥션 얻어오고
+		con = db.getCon();
+		// 질의명령 가져오고
 		String sql = mSQL.getSQL(mSQL.ADD_MEMB);
+		//PreparedStatement 가져오고
 		pstmt = db.getPSTMT(con, sql);
 		try {
+			// 질의 명령 완성하고
 			pstmt.setString(1, vo.getM_Id());
 			pstmt.setString(2, vo.getM_Pw());
 			pstmt.setString(3, vo.getM_Name());
 			pstmt.setString(4, vo.getM_Mail());
 			pstmt.setString(5, vo.getM_Tel());
-			
+			pstmt.setInt(6, vo.getM_avt());
+			pstmt.setString(7, vo.getM_gen());
+			// 보내고 결과받고
 			cnt = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -187,6 +194,60 @@ public class MemberDao {
 			db.close(pstmt);
 			db.close(con);
 		}
+		// 결과보내기
 		return cnt;
+	}
+
+	public int AddPic(PhotoVO vo) {
+		int cnt = 0;
+		// 커넥션 얻어오고
+		con = db.getCon();
+		// 질의명령 가져오고
+		String sql = mSQL.getSQL(mSQL.ADD_PIC);
+		//PreparedStatement 가져오고
+		pstmt = db.getPSTMT(con, sql);
+		try {
+			// 질의 명령 완성하고
+			pstmt.setInt(1, vo.getP_mno());
+			pstmt.setString(2, vo.getP_oriname());
+			pstmt.setString(3, vo.getP_savename());
+			pstmt.setLong(4, vo.getP_len());
+			pstmt.setString(5, vo.getP_dir());
+			// 보내고 결과받고
+			cnt = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			db.close(pstmt);
+			db.close(con);
+		}
+		// 결과보내기
+		return cnt;
+	}
+	
+	// 아이디를 입력하면 회원번호를 가져오는 함수
+	public int getMno(String id) {
+		int mno = 0;
+		
+		// 커넥션 얻어오고
+		con = db.getCon();
+		String sql = mSQL.getSQL(mSQL.SEL_ID_TO_MNO);
+		pstmt = db.getPSTMT(con, sql);
+		
+		try {
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next();
+			mno = rs.getInt("mno");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.close(rs);
+			db.close(pstmt);
+			db.close(con);
+		}
+		return mno;
 	}
 }

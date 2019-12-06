@@ -25,6 +25,12 @@ $(document).ready( function () {
 	$('#boardlist').click(function () {
 		$(location).attr('href', '/board/boardlist.cls');
 	});
+	$('#reboard').click(function () {
+		$(location).attr('href', '/board/reboard.cls');
+	});
+	$('#survey').click(function () {
+		$(location).attr('href', '/survey/survey.cls');
+	});
 
 	$('#list').click(function() {
 		// 회원번호를 mt3 클래스가 적용된 태그에 아이디 값으로 입력해놨으므로
@@ -79,6 +85,7 @@ $(document).ready( function () {
 	$('#btn3').click(function () {
 		$('#edit').css('display', 'none');
 	});
+	
 	$('#save').click(function () {
 		// 할일
 	// 데이터 읽어오고
@@ -137,15 +144,17 @@ $(document).ready( function () {
 
 </script>
 </head>
-<body class="w3-teal">
+<body style="background: url('/img/avatar/1324.gif') ">
 
    <div class="w3-col m2"><p></p></div>
    <div class="w3-col m8 w3-center w3-margin-top w3-white">
-      <h1 class="w3-col w3-pale-blue">메인 화면</h1>
-      <div class="w3-col" style="height: 700px;">
-      	<div class="w3-col w3-border" style="width: 90%; height: 90%; margin-left: 5%; margin-top: 2%; font-size: 50px;" > 홈페이지</div>
+      <h1 class="w3-col w3-pale-red">MAIN</h1>
+      <div class="w3-col" >
+      	<div class="w3-col w3-border" style="width: 90%; height: 90%; margin-left: 5%; margin-top: 2%; font-size: 50px;" >
+      	<img alt="main" src="/img/avatar/1122.jpg" style="width: 100%; height: auto; position: relative;"> </div>
       </div>
-      <div class="w3-col w3-margin-bottom ">
+      <div class="w3-col w3-margin-top">
+      
 			<c:if test='${empty SID }'>
 				<div class="w3-col m2 w3-red w3-button w3-right" id="login">로그인</div>
 				<div class="w3-col m2 w3-deep-purple w3-button w3-right" id="join">회원가입</div>
@@ -154,12 +163,15 @@ $(document).ready( function () {
 			<c:if test='${not empty SID }'>
          <div class="w3-col m2 w3-red w3-button w3-right" id="logout">로그아웃</div>
          <div class="w3-col m2 w3-indigo w3-button w3-right" id="list">회원정보보기</div>
+         <div class="w3-col m2 w3-green w3-button w3-right" id="reboard">댓글게시판</div>
          <div class="w3-col m2 w3-blue w3-button w3-right" id="boardlist">게시판</div>
+         <div class="w3-col m2 w3-yellow w3-button w3-right" id="survey">설문조사</div>
+         
 <!--          <div class="w3-col m2 w3-red w3-button" id="userEdit">회원정보수정</div> -->
          
 
          </c:if>
-      </div>
+         </div>
    </div>
 	<!-- 회원 상세정보 보기 -->
 	<div class="w3-modal" id="detail">

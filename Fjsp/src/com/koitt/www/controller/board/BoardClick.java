@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.koitt.www.controller.MainController;
 import com.koitt.www.dao.FileBoardADao;
+import com.koitt.www.vo.CommentVO;
 import com.koitt.www.vo.FileboardVO;
 public class BoardClick implements MainController {
 
@@ -18,19 +19,21 @@ public class BoardClick implements MainController {
 
 		String view = "/com/koitt/www/board/boardbody.jsp";
 		String sid = req.getParameter("sid");
-		String cnt1 = "";
+
 		String cnt = req.getParameter("cnt");
 
 
 		
 		System.out.println(sid);
 		FileBoardADao dao = new FileBoardADao();
+		ArrayList<CommentVO> list = dao.getboardre(sid);
 		
-		
-		ArrayList<FileboardVO> list = dao.getfBody(sid);
-
+		ArrayList<FileboardVO> body = dao.getfBody(sid);
+		System.out.println(list);
+		System.out.println(body);
 //		req.setAttribute("isRD", true);
-		req.setAttribute("body", list);
+		req.setAttribute("list", list);
+		req.setAttribute("body", body);
 		req.setAttribute("cnt", cnt);
 		return view;
 	}

@@ -48,7 +48,7 @@
 
 </script>
 </head>
-<body class="w3-teal">
+<body class="w3-teal " style="background: url('/img/avatar/1324.gif')">
 	<div class="w3-col m3">
 		<p></p>
 	</div>
@@ -88,15 +88,43 @@
 					<!-- 글번호 | 작성자 | 작성일 | 타이틀 -->
 					<pre class="w3-col w3-left w3-xlarge w3-left-align " id="fbbody">${da.fb_body}</pre>
 				</div>
-				<form method="POST" action="/board/boardclick.cls">
+				<form method="POST" action="/board/boardre.cls">
 					<div class="w3-con w3-border">
 						<textarea class="w3-dark-grey w3-col" rows="5" cols="100"
 							placeholder="댓글을 입력하세요" id="rep" name="rep"></textarea>
-						<button class="w3-right w3-button w3-green ">입력완료</button>
+						<input type="hidden" name="fbno" value="${da.fb_no}" >
+						<input type="hidden" name="sid" value="${SID}" >
+						<button class="w3-right w3-button w3-green">입력완료</button>
 					</div>
 				</form>
 			</div>
-
+			<div class="w3-left" style="font-size: 20px; margin-bottom: 20px; margin-left: 20px;">댓 글</div>
+				<c:forEach var="com" items="${list}">
+				
+			<div class="w3-container w3-white">
+			<div class="w3-row w3-border w3-margin-bottom">
+					<div class="w3-col m2 w3-border-right w3-padding-16 w3-blue" id="id${da.fb_no}">${com.frb_id} </div>
+					<div class="w3-col m2 w3-border-right  w3-teal" style="padding: 5px;" >${com.sdate}<small>${com.stime}</small></div>
+					<div class="w3-col m7 w3-border-right w3-center w3-padding-16 w3-white" id="bd${da.fb_no}">${com.frb_body}</div>
+				<form method="POST" action="/board/boardredel.cls">
+					<c:if test='${not empty SID }'>
+					<c:if test='${SID == com.frb_id}'>
+					
+						<button class="w3-col m1 w3-button w3-padding-16 w3-red" type="submit" name="bno" value="${com.frb_bno }">삭제</button>
+						<input type="hidden" name="fbno" value="${da.fb_no}">
+					</c:if>
+				</c:if>
+					<c:if test='${not empty SID }'>
+					<c:if test="${SID eq '관리자'}">
+					
+						<button class="w3-col m1 w3-button w3-padding-16 w3-red" type="submit" name="bno" value="${com.frb_bno }">삭제</button>
+						<input type="hidden" name="fbno" value="${da.fb_no}">
+					</c:if>
+				</c:if>
+				</form>	
+				</div>
+				</div>
+				</c:forEach>
 
 			<div class="w3-col m2 w3-button w3-black w3-right" id="main">목록</div>
 			<form method="POST" action="/board/boarddelete.cls">
@@ -104,7 +132,10 @@
 					<c:if test='${SID == da.fb_id }'>
 						<button class="w3-col m2 w3-button w3-padding w3-right w3-red del"
 							type="submit" id="fbno" name="fbno" value="${da.fb_no}">삭제하기</button>
-
+					</c:if>
+					<c:if test='${SID == "관리자" }'>
+						<button class="w3-col m2 w3-button w3-padding w3-right w3-red del"
+							type="submit" id="fbno" name="fbno" value="${da.fb_no}">삭제하기</button>
 					</c:if>
 					<div class="w3-col m2 w3-button w3-right w3-blue reset">수정하기</div>
 				</c:if>
