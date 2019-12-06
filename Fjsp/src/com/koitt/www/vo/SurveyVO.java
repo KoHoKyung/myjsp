@@ -39,6 +39,8 @@ public class SurveyVO {
 	private Time invTime;		// 설문 참여 시간
 	private String sinvDate;
 	private String sinvTime;
+	private int total;
+	private double per;
 	
 	private ArrayList<SurveyVO> list;
 	
@@ -176,6 +178,18 @@ public class SurveyVO {
 	public void setSinvTime() {
 		SimpleDateFormat form = new SimpleDateFormat("HH:mm:ss");
 		this.sinvTime = form.format(invTime);
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public double getPer() {
+		return per;
+	}
+	public void setPer(double per) {
+		this.per = per;
 	}
 	
 	

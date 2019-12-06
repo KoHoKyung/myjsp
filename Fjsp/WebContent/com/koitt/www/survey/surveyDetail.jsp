@@ -11,7 +11,18 @@
 <style>
 </style>
 <script type="text/javascript">
-	
+	$(document).ready(function() {
+		// 버튼 이벤트 처리
+		$('.btn').click(function() {
+			var str = $(this).text();
+			if (str = '제출') {
+				$('#frm').submit();
+			} else if (str = '취소') {
+				$(location).attr('href', '/main');
+			}
+		});
+		
+	});
 </script>
 </head>
 <body>
@@ -23,20 +34,25 @@
 			[ ${TITLE} ]<br>- 참여 페이지 -
 		</h4>
 		<div class="w3-col w3-padding">
-			<form method="post" action="/survey/surveyresult.cls" id="frm">
+			<form method="post" action="/survey/surveyproc.cls" id="frm">
+				<input type="hidden" name="len" value="${LIST.size()}"> <input
+					type="hidden" name="sid" value="${SID}"> 
 				<c:forEach var="data" items="${LIST }" varStatus="status">
+					<input type="hidden" name="sno" value="${data.sno}">
 					<div class="w3-col">
 						<h5>${status.count}.${data.body}</h5>
 					</div>
-					<div class="w3-col m2">
+					<div class="w3-col m1">
 						<p></p>
 					</div>
-					<div class="w3-col m10">
-						<c:forEach var="vo" items="${data.list}">
+					<div class="w3-col m11">
+						<c:forEach var="vo" items="${data.list}" varStatus="no">
 							<div class="w3-col">
 								<input type="radio" class="w3-col m1 w3-radio"
-									name="${data.qno}" value="${vo.seno}">
-								<h6 class="w3-col m11">${vo.ebody}</h6>
+									name="<%-- ${data.qno} --%>${status.count}" value="${vo.seno}">
+								<h6 class="w3-rest" style="line-height: 100%;">
+									<span> ${no.count} - ${vo.ebody}</span>
+								</h6>
 							</div>
 						</c:forEach>
 					</div>
